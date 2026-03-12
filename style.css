@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: all 0.5s ease;
+}
+
+/* Professional режим */
+body.professional {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Real Me режим */
+body.realme {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Стилі для хедера */
+header {
+    color: white;
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.5s ease;
+}
+
+header.professional {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+header.realme {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.title-section {
+    flex: 1;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2em;
+    color: rgba(255,255,255,0.9);
+    font-weight: 300;
+}
+
+/* Стильний тумблер */
+.mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.mode-label {
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.mode-label.active {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Тумблер switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Контейнер для макета */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* Стилі для бокового меню */
+.left-menu {
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: all 0.5s ease;
+}
+
+body.professional .left-menu {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+}
+
+body.realme .left-menu {
+    background: linear-gradient(135deg, #ff8a80 0%, #ff5252 100%);
+}
+
+.left-menu h2 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.left-menu ul {
+    list-style: none;
+}
+
+.left-menu ul li {
+    margin-bottom: 10px;
+}
+
+.left-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+body.professional .left-menu ul li a {
+    background-color: rgba(255,255,255,0.1);
+}
+
+body.professional .left-menu ul li a:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: translateX(5px);
+}
+
+body.realme .left-menu ul li a {
+    background-color: rgba(255,255,255,0.15);
+}
+
+body.realme .left-menu ul li a:hover {
+    background-color: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+}
+
+/* Стилі для основного контенту */
+.content {
+    flex: 1;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: all 0.5s ease;
+}
+
+body.professional .content {
+    background: white;
+}
+
+body.realme .content {
+    background: linear-gradient(135deg, #fff 0%, #ffe8f0 100%);
+}
+
+.content h2 {
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+body.professional .content h2 {
+    color: #2c3e50;
+}
+
+body.realme .content h2 {
+    color: #ff5252;
+    text-shadow: 2px 2px 4px rgba(255,82,82,0.2);
+}
+
+.content p {
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-size: 1.05em;
+}
+
+body.professional .content p {
+    color: #555;
+}
+
+body.realme .content p {
+    color: #333;
+}
+
+.content strong {
+    font-weight: 600;
+}
+
+body.professional .content strong {
+    color: #2c3e50;
+}
+
+body.realme .content strong {
+    color: #ff5252;
+}
+
+/* Спеціальні картки для контенту */
+.info-card {
+    background: rgba(255,255,255,0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 4px solid;
+    transition: all 0.3s ease;
+}
+
+body.professional .info-card {
+    border-left-color: #3498db;
+}
+
+body.realme .info-card {
+    border-left-color: #ff5252;
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Стилі для футера */
+footer {
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+}
+
+body.professional footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+body.realme footer {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .left-menu {
+        width: 100%;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+}
+}
+
+footer p {
+    font-size: 0.9em;
+}
