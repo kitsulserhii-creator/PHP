@@ -13,34 +13,28 @@ body {
 
 /* Professional режим */
 body.professional {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #5a67d8;
 }
 
 /* Real Me режим */
 body.realme {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    animation: gradientShift 10s ease infinite;
-}
-
-@keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    background: #48bb78;
 }
 
 /* Стилі для хедера */
 header {
     color: white;
-    padding: 30px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.5s ease;
+    padding: 28px 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: background 0.3s;
 }
 
 header.professional {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: #34495e;
 }
 
 header.realme {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    background: #38a169;
 }
 
 .header-content {
@@ -73,23 +67,21 @@ header p {
 .mode-toggle {
     display: flex;
     align-items: center;
-    gap: 15px;
-    background: rgba(255,255,255,0.1);
-    padding: 10px 20px;
-    border-radius: 50px;
-    backdrop-filter: blur(10px);
+    gap: 12px;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 18px;
+    border-radius: 25px;
 }
 
 .mode-label {
-    color: rgba(255,255,255,0.6);
-    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
     font-size: 0.9em;
-    transition: all 0.3s ease;
+    transition: color 0.3s;
 }
 
 .mode-label.active {
     color: white;
-    transform: scale(1.1);
 }
 
 /* Тумблер switch */
@@ -129,7 +121,7 @@ header p {
 }
 
 input:checked + .slider {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    background: #38a169;
 }
 
 input:focus + .slider {
@@ -159,27 +151,26 @@ input:checked + .slider:before {
 
 /* Стилі для бокового меню */
 .left-menu {
-    width: 250px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    transition: all 0.5s ease;
+    width: 240px;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: background 0.3s;
 }
 
 body.professional .left-menu {
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    background: #2c3e50;
 }
 
 body.realme .left-menu {
-    background: linear-gradient(135deg, #ff8a80 0%, #ff5252 100%);
+    background: #38a169;
 }
 
 .left-menu h2 {
     color: white;
-    margin-bottom: 15px;
-    font-size: 1.4em;
+    margin-bottom: 12px;
+    font-size: 1.3em;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .left-menu ul {
@@ -194,10 +185,10 @@ body.realme .left-menu {
     color: white;
     text-decoration: none;
     display: block;
-    padding: 12px 15px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    font-weight: 500;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    font-weight: 400;
 }
 
 body.professional .left-menu ul li a {
@@ -206,25 +197,23 @@ body.professional .left-menu ul li a {
 
 body.professional .left-menu ul li a:hover {
     background-color: rgba(255,255,255,0.2);
-    transform: translateX(5px);
 }
 
 body.realme .left-menu ul li a {
-    background-color: rgba(255,255,255,0.15);
+    background-color: rgba(255,255,255,0.1);
 }
 
 body.realme .left-menu ul li a:hover {
-    background-color: rgba(255,255,255,0.3);
-    transform: scale(1.05);
+    background-color: rgba(255,255,255,0.25);
 }
 
 /* Стилі для основного контенту */
 .content {
     flex: 1;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    transition: all 0.5s ease;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: background 0.3s;
 }
 
 body.professional .content {
@@ -232,14 +221,13 @@ body.professional .content {
 }
 
 body.realme .content {
-    background: linear-gradient(135deg, #fff 0%, #ffe8f0 100%);
+    background: #f0fff4;
 }
 
 .content h2 {
-    margin-bottom: 20px;
-    font-size: 2.2em;
+    margin-bottom: 18px;
+    font-size: 2em;
     font-weight: 700;
-    transition: all 0.3s ease;
 }
 
 body.professional .content h2 {
@@ -247,8 +235,7 @@ body.professional .content h2 {
 }
 
 body.realme .content h2 {
-    color: #ff5252;
-    text-shadow: 2px 2px 4px rgba(255,82,82,0.2);
+    color: #2f855a;
 }
 
 .content p {
@@ -270,21 +257,21 @@ body.realme .content p {
 }
 
 body.professional .content strong {
-    color: #2c3e50;
+    color: #34495e;
 }
 
 body.realme .content strong {
-    color: #ff5252;
+    color: #276749;
 }
 
 /* Спеціальні картки для контенту */
 .info-card {
-    background: rgba(255,255,255,0.5);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 15px 0;
-    border-left: 4px solid;
-    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.6);
+    padding: 18px;
+    border-radius: 8px;
+    margin: 12px 0;
+    border-left: 3px solid;
+    transition: box-shadow 0.2s;
 }
 
 body.professional .info-card {
@@ -292,35 +279,34 @@ body.professional .info-card {
 }
 
 body.realme .info-card {
-    border-left-color: #ff5252;
+    border-left-color: #38a169;
 }
 
 .info-card:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 /* Стилі для футера */
 footer {
     color: white;
     text-align: center;
-    padding: 25px;
+    padding: 22px;
     margin-top: 20px;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    transition: all 0.5s ease;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    transition: background 0.3s;
 }
 
 body.professional footer {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: #2c3e50;
 }
 
 body.realme footer {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    background: #38a169;
 }
 
 footer p {
     margin: 0;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 /* Адаптивність */
@@ -339,11 +325,10 @@ footer p {
     }
     
     header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
-}
-}
-
-footer p {
-    font-size: 0.9em;
+    
+    .content {
+        padding: 20px;
+    }
 }

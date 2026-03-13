@@ -30,8 +30,8 @@ $isRealMe = ($mode === 'realme');
     <header class="<?php echo $mode; ?>">
         <div class="header-content">
             <div class="title-section">
-                <h1><?php echo $isRealMe ? '🎮 Справжній Я' : '💼 Мій Портфоліо'; ?></h1>
-                <p><?php echo $isRealMe ? 'Ласкаво просимо до реального світу!' : 'Professional Web Developer'; ?></p>
+                <h1><?php echo $isRealMe ? 'Реальна версія' : 'Портфоліо'; ?></h1>
+                <p><?php echo $isRealMe ? 'просто я, без прикрас' : 'Веб-розробка та програмування'; ?></p>
             </div>
             
             <!-- Стильний тумблер перемикання -->

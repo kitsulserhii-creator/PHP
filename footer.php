@@ -1,7 +1,7 @@
     </div>
     
     <footer>
-        <p><?php echo $isRealMe ? '🎉 Made with ❤️ and way too much coffee' : '© 2026 My Portfolio. All rights reserved.'; ?></p>
+        <p><?php echo $isRealMe ? 'зроблено на PHP та ентузіазмі' : '© 2026. Навчальний проект.'; ?></p>
     </footer>
 </body>
 </html>
