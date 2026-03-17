@@ -1,15 +1,3 @@
-<?php
-// Підключення заголовка сторінки
-include 'header.php';
-
-// Підключення бокового меню
-include 'left_menu.php';
-
-// Отримуємо поточний режим
-$mode = $_SESSION['mode'];
-$isRealMe = ($mode === 'realme');
-?>
-
         <main class="content">
             <?php if ($isRealMe): ?>
                 <!-- Real Me режим -->
@@ -99,7 +87,3 @@ $isRealMe = ($mode === 'realme');
 
             <?php endif; ?>
         </main>
-
-<?php
-include 'footer.php';
-?>
