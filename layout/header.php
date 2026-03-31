@@ -1,15 +1,12 @@
 <?php
-// Перевірка чи сесія вже запущена
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Обробка перемикання режиму
 if (isset($_GET['mode'])) {
     $_SESSION['mode'] = $_GET['mode'];
 }
 
-// За замовчуванням Professional режим
 if (!isset($_SESSION['mode'])) {
     $_SESSION['mode'] = 'professional';
 }

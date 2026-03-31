@@ -11,17 +11,14 @@ body {
     transition: all 0.5s ease;
 }
 
-/* Professional режим */
 body.professional {
     background: #5a67d8;
 }
 
-/* Real Me режим */
 body.realme {
     background: #48bb78;
 }
 
-/* Стилі для хедера */
 header {
     color: white;
     padding: 28px 20px;
@@ -63,7 +60,6 @@ header p {
     font-weight: 300;
 }
 
-/* Стильний тумблер */
 .mode-toggle {
     display: flex;
     align-items: center;
@@ -84,7 +80,6 @@ header p {
     color: white;
 }
 
-/* Тумблер switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -140,7 +135,6 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-/* Контейнер для макета */
 .container {
     display: flex;
     max-width: 1200px;
@@ -149,7 +143,6 @@ input:checked + .slider:before {
     padding: 0 20px;
 }
 
-/* Стилі для бокового меню */
 .left-menu {
     width: 240px;
     padding: 18px;
@@ -207,7 +200,6 @@ body.realme .left-menu ul li a:hover {
     background-color: rgba(255,255,255,0.25);
 }
 
-/* Стилі для основного контенту */
 .content {
     flex: 1;
     padding: 35px;
@@ -264,7 +256,6 @@ body.realme .content strong {
     color: #276749;
 }
 
-/* Спеціальні картки для контенту */
 .info-card {
     background: rgba(255,255,255,0.6);
     padding: 18px;
@@ -286,7 +277,6 @@ body.realme .info-card {
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-/* Стилі для футера */
 footer {
     color: white;
     text-align: center;
@@ -309,7 +299,120 @@ footer p {
     font-size: 0.9em;
 }
 
-/* Адаптивність */
+.content form {
+    display: block;
+}
+.content form label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #444;
+}
+.content form input[type="text"],
+.content form input[type="password"],
+.content form input[type="email"],
+.content form input[type="tel"],
+.content form textarea {
+    width: 100%;
+    max-width: 680px;
+    padding: 8px 10px;
+    margin-top: 6px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 1em;
+}
+.content form textarea {
+    min-height: 88px;
+    resize: vertical;
+}
+.content form .radio-group {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin-top: 6px;
+}
+.content form .small-input {
+    display: inline-block;
+    width: 220px;
+}
+.content form button {
+    margin-top: 14px;
+    padding: 10px 18px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+body.realme .content form button {
+    background: #38a169;
+}
+.errors {
+    background: #fff0f0;
+    border: 1px solid #ffcccc;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    color: #700;
+}
+
+.errors p { margin: 0 0 8px 0; }
+.errors ul { margin: 8px 0 0 20px; padding: 0; }
+.errors li { color: #7a1414; margin-bottom: 6px; }
+
+
+
+.registration-form {
+    max-width: 900px;
+}
+.registration-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 22px;
+    align-items: start;
+}
+.registration-form .field {
+    display: flex;
+    flex-direction: column;
+}
+.registration-form .field-full {
+    grid-column: 1 / -1;
+}
+.registration-form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #2c3e50;
+}
+.registration-form input,
+.registration-form textarea {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #cfd8e3;
+    background: #fff;
+    font-size: 0.98em;
+}
+.registration-form textarea { min-height: 100px; }
+.registration-form .radio-group { display: flex; gap: 12px; align-items: center; }
+.registration-form .form-actions { margin-top: 16px; display: flex; justify-content: flex-end; }
+.registration-form .form-actions button { padding: 10px 20px; font-size: 1em; }
+
+.field.error label { color: #c0392b; }
+.field.error input, .field.error textarea { border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.06); }
+
+.registration-form input:focus, .registration-form textarea:focus {
+    outline: none;
+    box-shadow: 0 4px 14px rgba(50,115,220,0.08);
+    border-color: #5b9bf3;
+}
+
+@media (max-width: 900px) {
+    .registration-form .form-grid { grid-template-columns: 1fr; }
+    .registration-form { max-width: 100%; }
+}
+
+
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -332,3 +435,4 @@ footer p {
         padding: 20px;
     }
 }
+        flex-direction: column;
