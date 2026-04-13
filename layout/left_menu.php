@@ -2,14 +2,25 @@
         <nav class="left-menu">
             <h2><?php echo $isRealMe ? 'Меню' : 'Навігація'; ?></h2>
             <ul>
-                <li><a href="index.php?action=main">Головна</a></li>
-                <li><a href="index.php?action=about">Про сайт</a></li>
+                <li><a href="index.php?action=main"><i class="fas fa-home"></i> Головна</a></li>
+                <li><a href="index.php?action=about"><i class="fas fa-info-circle"></i> Про сайт</a></li>
+                
                 <?php if (!empty($_SESSION['user_logged'])): ?>
-                    <li><a href="index.php?action=profile">Профіль</a></li>
-                    <li><a href="index.php?action=logout">Вийти</a></li>
+                    <!-- Меню для авторизованих користувачів -->
+                    <li><a href="index.php?action=profile"><i class="fas fa-user"></i> Профіль</a></li>
+                    
+                    <?php if (!empty($_SESSION['user_admin'])): ?>
+                        <!-- Меню тільки для адміністраторів -->
+                        <li style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
+                            <strong style="color: rgba(255,255,255,0.7); font-size: 0.85em; padding-left: 12px;">АДМІН</strong>
+                        </li>
+                    <?php endif; ?>
+                    
+                    <li><a href="index.php?action=logout"><i class="fas fa-sign-out-alt"></i> Вийти</a></li>
                 <?php else: ?>
-                    <li><a href="index.php?action=registration">Реєстрація</a></li>
-                    <li><a href="index.php?action=login">Увійти</a></li>
+                    <!-- Меню для гостей -->
+                    <li><a href="index.php?action=registration"><i class="fas fa-user-plus"></i> Реєстрація</a></li>
+                    <li><a href="index.php?action=login"><i class="fas fa-sign-in-alt"></i> Увійти</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
