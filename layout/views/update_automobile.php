@@ -15,8 +15,16 @@ $id = (int)($_GET['id'] ?? 0);
 $errors = [];
 $values = [
     'brand' => '', 'model' => '', 'year' => '', 'color' => '',
-    'price' => '', 'mileage' => '', 'description' => '', 'visible' => '0'
+    'price' => '', 'mileage' => '', 'description' => '', 'visible' => '0', 'category_id' => ''
 ];
+
+// Fetch categories for dropdown
+try {
+    $categories = dbFetchAll("SELECT id, name FROM categories ORDER BY name");
+} catch (PDOException $e) {
+    error_log('Fetch categories error: ' . $e->getMessage());
+    $categories = [];
+}
 
 // CSRF token
 if (!isset($_SESSION['csrf_token'])) {
@@ -47,7 +55,8 @@ if ($id <= 0) {
                 'price' => $automobile['price'] !== null ? (string)$automobile['price'] : '',
                 'mileage' => $automobile['mileage'] !== null ? (string)$automobile['mileage'] : '',
                 'description' => $automobile['description'] ?? '',
-                'visible' => (string)$automobile['visible']
+                'visible' => (string)$automobile['visible'],
+                'category_id' => $automobile['category_id'] !== null ? (string)$automobile['category_id'] : ''
             ];
         }
     } catch (PDOException $e) {
@@ -72,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $automobile) {
         $values['mileage'] = trim($_POST['mileage'] ?? '');
         $values['description'] = trim($_POST['description'] ?? '');
         $values['visible'] = isset($_POST['visible']) ? '1' : '0';
+        $values['category_id'] = trim($_POST['category_id'] ?? '');
         
         // Validation (same as create)
         if ($values['brand'] === '') {
@@ -125,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $automobile) {
                 // Update automobile in database
                 dbQuery(
                     "UPDATE automobiles 
-                     SET brand = ?, model = ?, year = ?, color = ?, price = ?, mileage = ?, description = ?, visible = ? 
+                     SET brand = ?, model = ?, year = ?, color = ?, price = ?, mileage = ?, description = ?, visible = ?, category_id = ?
                      WHERE id = ?",
                     [
                         $values['brand'],
@@ -136,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $automobile) {
                         $values['mileage'] !== '' ? (int)$values['mileage'] : null,
                         $values['description'] !== '' ? $values['description'] : null,
                         (int)$values['visible'],
+                        $values['category_id'] !== '' ? (int)$values['category_id'] : null,
                         $id
                     ]
                 );
@@ -194,6 +205,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $automobile) {
                 <div class="field<?php if (isset($errors['color'])) echo ' error'; ?>">
                     <label for="color">Колір</label>
                     <input id="color" name="color" type="text" value="<?=htmlspecialchars($values['color'], ENT_QUOTES, 'UTF-8')?>">
+                </div>
+                
+                <div class="field<?php if (isset($errors['category_id'])) echo ' error'; ?>">
+                    <label for="category_id">Категорія</label>
+                    <select id="category_id" name="category_id">
+                        <option value="">-- Не вибрано --</option>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?=(int)$cat['id']?>" <?= $values['category_id'] == $cat['id'] ? 'selected' : '' ?>>
+                                <?=htmlspecialchars($cat['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 
                 <div class="field<?php if (isset($errors['price'])) echo ' error'; ?>">

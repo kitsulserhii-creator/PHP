@@ -17,6 +17,7 @@
                         <li style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
                             <strong style="color: rgba(255,255,255,0.7); font-size: 0.85em; padding-left: 12px;">АДМІН</strong>
                         </li>
+                        <li><a href="index.php?action=manage_categories"><i class="fas fa-tags"></i> Категорії</a></li>
                     <?php endif; ?>
                     
                     <li><a href="index.php?action=logout"><i class="fas fa-sign-out-alt"></i> Вийти</a></li>
