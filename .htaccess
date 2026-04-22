@@ -1,0 +1,144 @@
+# PHP Portfolio - Apache Configuration
+
+# ============================================
+# SECURITY HEADERS
+# ============================================
+
+<IfModule mod_headers.c>
+    # Prevent XSS attacks
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://kit.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com; img-src 'self' data: https:; connect-src 'self' https://ka-f.fontawesome.com;"
+    
+    # Permissions Policy (Feature Policy)
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+</IfModule>
+
+# ============================================
+# PHP CONFIGURATION
+# ============================================
+
+<IfModule mod_php.c>
+    # Hide PHP version
+    php_flag expose_php Off
+    
+    # Display errors (set to Off in production)
+    php_flag display_errors Off
+    php_flag display_startup_errors Off
+    
+    # Log errors
+    php_flag log_errors On
+    
+    # Session security
+    php_value session.cookie_httponly 1
+    php_value session.cookie_samesite Strict
+    php_value session.use_strict_mode 1
+    php_value session.gc_maxlifetime 3600
+    
+    # File upload limits
+    php_value upload_max_filesize 10M
+    php_value post_max_size 12M
+    
+    # Memory and execution limits
+    php_value memory_limit 128M
+    php_value max_execution_time 30
+    php_value max_input_time 30
+</IfModule>
+
+# ============================================
+# DIRECTORY PROTECTION
+# ============================================
+
+# Disable directory listing
+Options -Indexes
+
+# Prevent access to sensitive files
+<FilesMatch "^(\.env|\.gitignore|composer\.json|composer\.lock|README.*\.md)$">
+    Require all denied
+</FilesMatch>
+
+# Protect config and database directories
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^database/.*\.sql$ - [F,L]
+</IfModule>
+
+# Prevent access to backup files
+<FilesMatch "\.(bak|backup|old|tmp|swp|swo|log)$">
+    Require all denied
+</FilesMatch>
+
+# ============================================
+# URL REWRITING (Clean URLs)
+# ============================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Remove trailing slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)/$ /$1 [R=301,L]
+    
+    # Redirect www to non-www (optional - uncomment if needed)
+    # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    # RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+    
+    # Force HTTPS (uncomment when SSL certificate is installed)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ============================================
+# COMPRESSION (GZIP)
+# ============================================
+
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, XML, JSON
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+</IfModule>
+
+# ============================================
+# BROWSER CACHING
+# ============================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # Fonts
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # HTML (no caching for dynamic content)
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # Default
+    ExpiresDefault "access plus 1 week"
+</IfModule>
+
+# ============================================
+# ERROR PAGES (Uncomment and customize if needed)
+# ============================================
+
+# ErrorDocument 404 /error404.html
+# ErrorDocument 500 /error500.html
