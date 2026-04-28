@@ -12,8 +12,16 @@ if (empty($_SESSION['user_logged']) || empty($_SESSION['user_id'])) {
 $errors = [];
 $values = [
     'brand' => '', 'model' => '', 'year' => '', 'color' => '',
-    'price' => '', 'mileage' => '', 'description' => ''
+    'price' => '', 'mileage' => '', 'description' => '', 'category_id' => ''
 ];
+
+// Fetch categories for dropdown
+try {
+    $categories = dbFetchAll("SELECT id, name FROM categories ORDER BY name");
+} catch (PDOException $e) {
+    error_log('Fetch categories error: ' . $e->getMessage());
+    $categories = [];
+}
 
 // CSRF token
 if (!isset($_SESSION['csrf_token'])) {
@@ -33,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $values['price'] = trim($_POST['price'] ?? '');
         $values['mileage'] = trim($_POST['mileage'] ?? '');
         $values['description'] = trim($_POST['description'] ?? '');
+        $values['category_id'] = trim($_POST['category_id'] ?? '');
         
         // Validation
         if ($values['brand'] === '') {
@@ -88,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 // Insert automobile into database
                 dbQuery(
-                    "INSERT INTO automobiles (brand, model, year, color, price, mileage, description, visible, author_id) 
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO automobiles (brand, model, year, color, price, mileage, description, visible, author_id, category_id) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     [
                         $values['brand'],
                         $values['model'],
@@ -99,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $values['mileage'] !== '' ? (int)$values['mileage'] : null,
                         $values['description'] !== '' ? $values['description'] : null,
                         $visible,
-                        (int)$_SESSION['user_id']
+                        (int)$_SESSION['user_id'],
+                        $values['category_id'] !== '' ? (int)$values['category_id'] : null
                     ]
                 );
                 
@@ -156,6 +166,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="field<?php if (isset($errors['color'])) echo ' error'; ?>">
                 <label for="color">Колір</label>
                 <input id="color" name="color" type="text" value="<?=htmlspecialchars($values['color'], ENT_QUOTES, 'UTF-8')?>">
+            </div>
+            
+            <div class="field<?php if (isset($errors['category_id'])) echo ' error'; ?>">
+                <label for="category_id">Категорія</label>
+                <select id="category_id" name="category_id">
+                    <option value="">-- Не вибрано --</option>
+                    <?php foreach ($categories as $cat): ?>
+                        <option value="<?=(int)$cat['id']?>" <?= $values['category_id'] == $cat['id'] ? 'selected' : '' ?>>
+                            <?=htmlspecialchars($cat['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             
             <div class="field<?php if (isset($errors['price'])) echo ' error'; ?>">

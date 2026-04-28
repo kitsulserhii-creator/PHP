@@ -12,28 +12,52 @@ try {
     if (!empty($_SESSION['user_admin'])) {
         // Admin sees all automobiles
         $automobiles = dbFetchAll(
-            "SELECT a.*, u.login as author_name 
+            "SELECT a.*, u.login as author_name, c.name as category_name
              FROM automobiles a 
              JOIN users u ON a.author_id = u.id 
+             LEFT JOIN categories c ON a.category_id = c.id
              ORDER BY a.date DESC"
         );
     } else {
         // Regular users and guests see only published automobiles
         $automobiles = dbFetchAll(
-            "SELECT a.*, u.login as author_name 
+            "SELECT a.*, u.login as author_name, c.name as category_name
              FROM automobiles a 
              JOIN users u ON a.author_id = u.id 
+             LEFT JOIN categories c ON a.category_id = c.id
              WHERE a.visible = 1 
              ORDER BY a.date DESC"
         );
     }
+    
+    // Fetch all categories for sidebar
+    $categories = dbFetchAll("SELECT id, name FROM categories ORDER BY name");
 } catch (PDOException $e) {
     error_log('Fetch automobiles error: ' . $e->getMessage());
     $automobiles = [];
+    $categories = [];
 }
 ?>
 
 <main class="content">
+    <!-- Categories sidebar -->
+    <?php if (!empty($categories)): ?>
+        <div class="categories-sidebar">
+            <h3><i class="fas fa-tags"></i> Категорії</h3>
+            <ul class="categories-list-sidebar">
+                <li><a href="index.php?action=automobiles" class="category-link-all"><i class="fas fa-th"></i> Всі категорії</a></li>
+                <?php foreach ($categories as $cat): ?>
+                    <li>
+                        <a href="index.php?action=category_automobiles&category_id=<?=(int)$cat['id']?>">
+                            <i class="fas fa-tag"></i> <?=htmlspecialchars($cat['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+    
+    <div class="automobiles-main-content">
     <div class="content-header">
         <h2>Автомобілі</h2>
         <?php if (!empty($_SESSION['user_logged'])): ?>
@@ -72,6 +96,15 @@ try {
                     </div>
                     
                     <div class="auto-details">
+                        <?php if ($auto['category_name']): ?>
+                            <p>
+                                <i class="fas fa-tag"></i> <strong>Категорія:</strong> 
+                                <a href="index.php?action=category_automobiles&category_id=<?=(int)$auto['category_id']?>" class="category-link">
+                                    <?=htmlspecialchars($auto['category_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?>
+                                </a>
+                            </p>
+                        <?php endif; ?>
+                        
                         <?php if ($auto['color']): ?>
                             <p><i class="fas fa-palette"></i> <strong>Колір:</strong> <?=htmlspecialchars($auto['color'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')?></p>
                         <?php endif; ?>
@@ -125,5 +158,5 @@ try {
                 <p>Опубліковано: <strong><?=$published?></strong> | Не опубліковано: <strong><?=$unpublished?></strong></p>
             <?php endif; ?>
         </div>
-    <?php endif; ?>
+    </div> <!-- .automobiles-main-content -->
 </main>
