@@ -81,8 +81,8 @@
 
                 <div class="info-card">
                     <h3>Контакти</h3>
-                    <p><strong>Email:</strong> студентська пошта (за запитом)</p>
-                    <p><strong>GitHub:</strong> є профіль з навчальними проектами</p>
+                    <p><strong>Email:</strong> нема</p>
+                    <p><strong>GitHub:</strong> нема</p>
                 </div>
 
             <?php endif; ?>
