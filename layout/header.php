@@ -1,7 +1,22 @@
 <?php
+declare(strict_types=1);
+
+// Start session with secure configuration
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', '1');
+    ini_set('session.cookie_samesite', 'Strict');
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        ini_set('session.cookie_secure', '1');
+    }
     session_start();
 }
+
+// Send security headers
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com;");
 
 if (isset($_GET['mode'])) {
     $_SESSION['mode'] = $_GET['mode'];
@@ -19,6 +34,7 @@ $isRealMe = ($mode === 'realme');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?php echo $isRealMe ? 'Реальна версія портфоліо' : 'Професійне портфоліо веб-розробника'; ?>">
     <title><?php echo $isRealMe ? '🎮 Real Me' : '💼 My Portfolio'; ?></title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
