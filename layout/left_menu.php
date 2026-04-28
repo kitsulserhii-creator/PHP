@@ -4,10 +4,13 @@
             <ul>
                 <li><a href="index.php?action=main"><i class="fas fa-home"></i> Головна</a></li>
                 <li><a href="index.php?action=about"><i class="fas fa-info-circle"></i> Про сайт</a></li>
+                <li><a href="index.php?action=automobiles"><i class="fas fa-car"></i> Автомобілі</a></li>
                 
                 <?php if (!empty($_SESSION['user_logged'])): ?>
                     <!-- Меню для авторизованих користувачів -->
+                    <li style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.15);"></li>
                     <li><a href="index.php?action=profile"><i class="fas fa-user"></i> Профіль</a></li>
+                    <li><a href="index.php?action=create_automobile"><i class="fas fa-plus-circle"></i> Додати авто</a></li>
                     
                     <?php if (!empty($_SESSION['user_admin'])): ?>
                         <!-- Меню тільки для адміністраторів -->
